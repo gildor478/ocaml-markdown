@@ -1,0 +1,16 @@
+# OASIS_START
+# DO NOT EDIT (digest: c02139440a5e87dab1aa43c08e057f19)
+version = "0.1.0"
+description = "Markdown parser and printer"
+requires = "extlib str sexplib"
+archive(byte) = "markdown.cma"
+archive(native) = "markdown.cmxa"
+package "html" (
+ version = "0.1.0"
+ description = "Markdown parser and printer"
+ requires = "markdown ocsigen.xhtml"
+ archive(byte) = "html.cma"
+ archive(native) = "html.cmxa"
+)
+# OASIS_STOP
+

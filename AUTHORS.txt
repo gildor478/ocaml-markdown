@@ -1,0 +1,6 @@
+(* OASIS_START *)
+(* DO NOT EDIT (digest: 81ee591d1533bab91dd873e7722336c8) *)
+Authors of ocaml-makrdown
+Mauricio Fernandez
+Sylvain Le Gall
+(* OASIS_STOP *)

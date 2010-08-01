@@ -1,0 +1,24 @@
+# OASIS_START
+# DO NOT EDIT (digest: 6c2b1091167b3450a34dc25268e94777)
+# Library markdown
+# Library html
+"src": include
+<src/*.ml{,i}>: use_markdown
+<src/*.ml{,i}>: pkg_str
+<src/*.ml{,i}>: pkg_sexplib
+<src/*.ml{,i}>: pkg_ocsigen.xhtml
+<src/*.ml{,i}>: pkg_extlib
+# Executable test
+"test/test.byte": use_markdown
+"test/test.byte": pkg_str
+"test/test.byte": pkg_sexplib
+"test/test.byte": pkg_oUnit
+"test/test.byte": pkg_extlib
+<test/*.ml{,i}>: use_markdown
+<test/*.ml{,i}>: pkg_str
+<test/*.ml{,i}>: pkg_sexplib
+<test/*.ml{,i}>: pkg_oUnit
+<test/*.ml{,i}>: pkg_extlib
+# OASIS_STOP
+
+"src/Markdown.ml": syntax_camlp4o, pkg_sexplib.syntax
