@@ -1,6 +1,6 @@
 OASISFormat: 0.2
 Name:        ocaml-markdown
-Version:     0.1.0
+Version:     0.1.1
 Synopsis:    Markdown parser and printer
 Authors:     Mauricio Fernandez, Sylvain Le Gall
 Copyrights:  (C) 2009 Mauricio Fernandez,
