@@ -1,6 +1,6 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 21d082d19bb87af22bd23bcee5c7e82b) *)
-This is the README file for the ocaml-makrdown distribution.
+(* DO NOT EDIT (digest: 0b0e578b6555b4d9716df8fd8342636b) *)
+This is the README file for the ocaml-markdown distribution.
 
 (C) 2009 Mauricio Fernandez
 
