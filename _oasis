@@ -20,7 +20,7 @@ Library html
   FindlibParent: markdown
   Path:          src
   Modules:       MarkdownHTML
-  BuildDepends:  markdown, ocsigen.xhtml
+  BuildDepends:  markdown, tyxml
   
 Executable test
   Path:         test

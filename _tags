@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 0a8c8eb757c302fb5a7cb238d5eab46f)
+# DO NOT EDIT (digest: d18ebce4c7b3e9563cb1c3a17a4c17a1)
 # Ignore VCS directories, you can use the same kind of rule outside 
 # OASIS_START/STOP if you want to exclude directories that contains 
 # useless stuff for the build process
@@ -18,7 +18,7 @@
 # Library html
 "src/html.cmxs": use_html
 <src/*.ml{,i}>: use_markdown
-<src/*.ml{,i}>: pkg_ocsigen.xhtml
+<src/*.ml{,i}>: pkg_tyxml
 <src/*.ml{,i}>: pkg_extlib
 <src/*.ml{,i}>: pkg_str
 <src/*.ml{,i}>: pkg_sexplib

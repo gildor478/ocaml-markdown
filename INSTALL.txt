@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 9fbd9b7bc8431a8c3dd4c4c7d78d2ae2) *)
+(* DO NOT EDIT (digest: 0285bf40fba5c66740b69a483c4c7639) *)
 This is the INSTALL file for the ocaml-markdown distribution.
 
 This package uses OASIS to generate its build system. See section OASIS for
@@ -13,7 +13,7 @@ In order to compile this package, you will need:
 * findlib
 * extlib for library markdown
 * sexplib for library markdown
-* ocsigen for library html
+* tyxml for library html
 * oUnit for executable test
 
 Installing

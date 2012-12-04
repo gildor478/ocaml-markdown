@@ -1,7 +1,9 @@
 (* Copyright (C) 2009 Mauricio Fernandez <mfp@acm.org> *)
 
+module Make_xhtml (Xhtml : Xhtml_sigs.T) = struct
+
 open Markdown
-open XHTML.M
+open Xhtml
 
 let rec elm_to_html ~render_pre ~render_link ~render_img elm =
   let self = elm_to_html ~render_pre ~render_link ~render_img in
@@ -47,3 +49,5 @@ and text_to_html ~render_link ~render_img = function
 
 let to_html ~render_pre ~render_link ~render_img l =
   List.map (elm_to_html ~render_pre ~render_link ~render_img) l
+
+end

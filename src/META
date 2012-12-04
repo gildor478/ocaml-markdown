@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: cff6c2169271195c5332a7fa0c75f832)
+# DO NOT EDIT (digest: 3f3e9bbf052aa5a6797d954bf554ce73)
 version = "0.1.1"
 description = "Markdown parser and printer"
 requires = "extlib str sexplib"
@@ -11,7 +11,7 @@ exists_if = "markdown.cma"
 package "html" (
  version = "0.1.1"
  description = "Markdown parser and printer"
- requires = "markdown ocsigen.xhtml"
+ requires = "markdown tyxml"
  archive(byte) = "html.cma"
  archive(byte, plugin) = "html.cma"
  archive(native) = "html.cmxa"
