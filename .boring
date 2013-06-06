@@ -117,3 +117,4 @@
 ^setup.data$
 ^ocaml-markdown.*\.tar\.gz$
 ^ocaml-markdown.*\.tar\.gz\.asc$
+^dist$

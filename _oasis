@@ -1,4 +1,4 @@
-OASISFormat: 0.2
+OASISFormat: 0.3
 Name:        ocaml-markdown
 Version:     0.1.1
 Synopsis:    Markdown parser and printer
@@ -6,8 +6,8 @@ Authors:     Mauricio Fernandez, Sylvain Le Gall
 Copyrights:  (C) 2009 Mauricio Fernandez,
              (C) 2010 Sylvain Le Gall
 License:     http://en.wikipedia.org/wiki/MIT_License
-Plugins:     META (0.2), 
-             StdFiles (0.2), 
+Plugins:     META (0.2),
+             StdFiles (0.2),
              DevFiles (0.2)
 BuildTools:  ocamlbuild
 
@@ -15,19 +15,19 @@ Library markdown
   Path:    src
   Modules: Markdown
   BuildDepends: extlib, str, sexplib
-  
+
 Library html
   FindlibParent: markdown
   Path:          src
   Modules:       MarkdownHTML
   BuildDepends:  markdown, tyxml
-  
+
 Executable test
   Path:         test
   MainIs:       test.ml
   BuildDepends: markdown, oUnit
   Install:      false
-  
+
 Test main
   Command: $test
-  
+
