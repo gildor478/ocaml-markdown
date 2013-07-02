@@ -1,14 +1,10 @@
-(* OASIS_START *)
-(* DO NOT EDIT (digest: 0b0e578b6555b4d9716df8fd8342636b) *)
-This is the README file for the ocaml-markdown distribution.
 
-(C) 2009 Mauricio Fernandez
+OCaml-markdown is markdown parser and printer written in OCaml.
 
-(C) 2010 Sylvain Le Gall
+The sources of this project can be found here:
+https://github.com/ocaml/ocaml-markdown
 
-Markdown parser and printer
+Trackers (bugs, feature requests) and file are here:
+https://forge.ocamlcore.org/projects/ocaml-markdown/
 
-See the files INSTALL.txt for building and installation instructions. 
-
-
-(* OASIS_STOP *)
+See the files INSTALL.txt for building and installation instructions.
