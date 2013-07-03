@@ -2,14 +2,15 @@ OASISFormat: 0.3
 Name:        ocaml-markdown
 Version:     0.1.2
 Synopsis:    Markdown parser and printer
-Description: This is a pure OCaml parser for Markdown files.  It was
+Description:
+  This is a pure OCaml parser for Markdown files.  It was
   originally written for Ocsigen but may be useful in other contexts too.
 Authors:     Mauricio Fernandez, Sylvain Le Gall
-Maintainers: Sylvain Le Gall <sylvain+ocaml@le-gall.net>
+Maintainers: Sylvain Le Gall <sylvain@le-gall.net>
 Copyrights:  (C) 2009 Mauricio Fernandez,
              (C) 2010 Sylvain Le Gall
-License:     http://en.wikipedia.org/wiki/MIT_License
-Homepage:    https://forge.ocamlcore.org/projects/ocaml-markdown/
+License:     MIT
+Homepage:    http://forge.ocamlcore.org/projects/ocaml-markdown/
 Plugins:     META (0.3),
              StdFiles (0.3),
              DevFiles (0.3)
