@@ -99,7 +99,7 @@ and skip_blank_line e = match BatEnum.peek e with
 and read_nonempty indent e s = match s.[0] with
     '!' -> read_heading s
   | '*' | '+' | '-' as c when snd_is_space s ->
-      push_remainder indent s e; 
+      push_remainder indent s e;
       read_ul indent c e
   | '#' when snd_is_space s -> push_remainder indent s e; read_ol indent e
   | '{' when snd_is s '{' -> read_pre (BatString.slice s ~first:2) e
@@ -206,13 +206,15 @@ and scan s st n =
         delimited (fun ~first ~last -> Bold (unescape_slice s ~first ~last)) "*"
           s st n
     | '_' ->
-        delimited (fun ~first ~last -> Emph (unescape_slice s ~first ~last)) "__"
+        delimited
+          (fun ~first ~last -> Emph (unescape_slice s ~first ~last)) "__"
           s st n
     | '=' ->
         delimited
           (fun ~first ~last ->
              Struck (scan s
-                       { max = last; fragments = []; current = new_fragment (); }
+                       { max = last; fragments = [];
+                         current = new_fragment (); }
                        first))
           "==" s st n
     | '!' when matches_at s ~max n "![" ->
@@ -265,7 +267,8 @@ and scan_past ~delim s ~max n =
   let rec loop m ~max =
     if m >= max then None else
       match (try Some (Str.search_forward re s m) with Not_found -> None) with
-        | Some m when m < max && s.[m-1] <> '\\' -> Some (m + String.length delim)
+        | Some m when m < max && s.[m-1] <> '\\' ->
+              Some (m + String.length delim)
         | Some m when m < max -> loop (m + 1) ~max
         | _ -> None (* no match or >= max  *)
   in loop n ~max

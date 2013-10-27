@@ -18,7 +18,8 @@ let test_read_list test_ctxt =
     [Ulist ([Normal [Text "foo bar baz"]], [[Normal [Text "baz"]]])]
     "* foo\nbar \n   baz\n* baz";
   check
-    [Ulist ([Normal [Text "foo"]; Normal [Text "bar"]], [[Normal [Text "baz"]]])]
+    [Ulist ([Normal [Text "foo"];
+             Normal [Text "bar"]], [[Normal [Text "baz"]]])]
     "* foo\n\n bar\n* baz";
   check
     [Ulist ([Normal [Text "foo"]], [])]
@@ -84,7 +85,8 @@ let test_read_normal test_ctxt =
         Text "."]]
     "foo *bar* *baz* __foobar__ _foobar_[desc](target)![alt](image).";
   check
-    [Normal [Bold "foo"; Text " "; Struck [Bold "foo"; Emph "bar"; Text "_baz_"]]]
+    [Normal [Bold "foo"; Text " ";
+             Struck [Bold "foo"; Emph "bar"; Text "_baz_"]]]
     "*foo* ==*foo*__bar___baz_==";
   check
     [Normal
@@ -102,7 +104,8 @@ let test_read_normal_unmatched test_ctxt =
   check [Normal [Text "foo _ bar"]] "foo _ bar";
   check [Normal [Text "foo __ bar"]] "foo __ bar";
   check [Normal [Text "foo == bar"]] "foo == bar";
-  check [Normal [Text "foo == bar"]; Normal [Text "baz =="]] "foo == bar\n\nbaz =="
+  check [Normal [Text "foo == bar"]; Normal [Text "baz =="]]
+    "foo == bar\n\nbaz =="
 
 let test_read_pre test_ctxt =
   check
@@ -136,7 +139,8 @@ let test_read_pre test_ctxt =
 let test_heading test_ctxt =
   for i = 1 to 6 do
     check
-      [Heading (i, [Text "foo "; Link { href_target = "dst"; href_desc = "foo" }])]
+      [Heading (i, [Text "foo ";
+                    Link { href_target = "dst"; href_desc = "foo" }])]
     (String.make i '!' ^ "foo [foo](dst)")
   done
 
@@ -146,7 +150,9 @@ let test_quote test_ctxt =
   check [Normal [Text "foo says:"];
          Quote [Normal [Text "xxx:"];
                 Ulist ([Normal [Text "xxx yyy"]],
-                       [[Normal [Emph "2"]]; [Normal [Text "_2_"]]; [Normal [Bold "3"]]]);
+                       [[Normal [Emph "2"]];
+                        [Normal [Text "_2_"]];
+                        [Normal [Bold "3"]]]);
                 Quote [Normal [Text "yyy"]; Quote [Normal [Text "zzz"]];
                        Normal [Text "aaa"]]]]
     "foo says:\n\
@@ -170,15 +176,15 @@ let test_quote test_ctxt =
      > * two\n\
      \n"
 
-let test_oasis test_ctxt = 
-check 
-[Normal 
+let test_oasis test_ctxt =
+check
+[Normal
    [Text "OASIS generates a full configure, build and install system \
           for your application. It starts with a simple ";
     Code "_oasis";
     Text " file at the toplevel of your project and creates everything \
           required."];
- Normal 
+ Normal
    [Text "It uses external tools like OCamlbuild and it can be considered \
           as the glue between various subsystems that do the job. It \
           should support the following tools:"];
@@ -205,18 +211,18 @@ project and creates everything required.
 
 It uses external tools like OCamlbuild and it can be considered as the glue
 between various subsystems that do the job. It should support the following
-tools: 
+tools:
 
 - OCamlbuild
 - OMake (todo)
 - OCamlMakefile (todo)
 - ocaml-autoconf (todo)
 
-It also features a do-it-yourself command line invocation and an internal 
+It also features a do-it-yourself command line invocation and an internal
 configure/install scheme. Libraries are managed through findlib. It has been
 tested on GNU Linux and Windows.
 
-It also allows to have standard entry points and description. It helps to 
+It also allows to have standard entry points and description. It helps to
 integrates your libraries and software with third parties tools like GODI."
 
 let tests =
