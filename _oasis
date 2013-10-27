@@ -19,7 +19,7 @@ BuildTools:  ocamlbuild
 Library markdown
   Path:         src
   Modules:      Markdown
-  BuildDepends: extlib, str
+  BuildDepends: batteries, str
 
 Library html
   FindlibParent: markdown

@@ -2,13 +2,12 @@
 open OUnit2
 open Markdown
 open Printf
-open ExtString
 
 let aeq_pars ?msg expected actual =
   assert_equal ?msg expected actual
 
 let check expected input =
-  aeq_pars ~msg:(sprintf "With input:\n%s\n" (String.strip input))
+  aeq_pars ~msg:(sprintf "With input:\n%s\n" (BatString.strip input))
     expected (parse_text input)
 
 let test_read_list test_ctxt =

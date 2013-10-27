@@ -1,7 +1,5 @@
 (* Copyright (C) 2009 Mauricio Fernandez <mfp@acm.org> *)
 open Printf
-open ExtString
-open ExtList
 
 type ref = { src : string; desc : string }
 
@@ -53,7 +51,7 @@ let unescape s =
   in loop 0
 
 let unescape_slice s ~first ~last =
-  unescape (String.strip (String.slice ~first ~last s))
+  unescape (BatString.strip (BatString.slice ~first ~last s))
 
 let snd_is s c = String.length s > 1 && s.[1] = c
 let snd_is_space s = snd_is s ' ' || snd_is s '\t'
@@ -65,9 +63,9 @@ let collect f x =
   in loop []
 
 let push_remainder ?(first=2) indent s e =
-  let s = String.slice ~first s in
-  let s' = String.strip s in
-    Enum.push e (indent + first + indentation s, s', s' = "")
+  let s = BatString.slice ~first s in
+  let s' = BatString.strip s in
+    BatEnum.push e (indent + first + indentation s, s', s' = "")
 
 let adds = Buffer.add_string
 
@@ -80,23 +78,23 @@ let push_current st =
     Text (Buffer.contents st.current) :: st.fragments
   else st.fragments
 
-let rec read_paragraph ?(skip_blank=true) indent e = match Enum.peek e with
+let rec read_paragraph ?(skip_blank=true) indent e = match BatEnum.peek e with
     None -> None
   | Some (indentation, line, isblank) -> match isblank with
         true ->
-          Enum.junk e;
+          BatEnum.junk e;
           if skip_blank then read_paragraph indent e else None
       | false ->
           if indentation < indent then
             None
           else begin
-            Enum.junk e;
+            BatEnum.junk e;
             read_nonempty indentation e line
           end
 
-and skip_blank_line e = match Enum.peek e with
+and skip_blank_line e = match BatEnum.peek e with
     None | Some (_, _, false) -> ()
-  | Some (_, _, true) -> Enum.junk e; skip_blank_line e
+  | Some (_, _, true) -> BatEnum.junk e; skip_blank_line e
 
 and read_nonempty indent e s = match s.[0] with
     '!' -> read_heading s
@@ -104,14 +102,14 @@ and read_nonempty indent e s = match s.[0] with
       push_remainder indent s e; 
       read_ul indent c e
   | '#' when snd_is_space s -> push_remainder indent s e; read_ol indent e
-  | '{' when snd_is s '{' -> read_pre (String.slice s ~first:2) e
+  | '{' when snd_is s '{' -> read_pre (BatString.slice s ~first:2) e
   | '>' when snd_is_space s || s = ">" ->
       (* last check needed because "> " becomes ">" *)
-      Enum.push e (indent, s, false); read_quote indent e
-  | _ -> Enum.push e (indent, s, false); read_normal e
+      BatEnum.push e (indent, s, false); read_quote indent e
+  | _ -> BatEnum.push e (indent, s, false); read_normal e
 
 and read_heading s =
-  let s' = String.strip ~chars:"!" s in
+  let s' = BatString.strip ~chars:"!" s in
   let level = String.length s - String.length s' in
     Some (Heading (level, parse_text s'))
 
@@ -131,9 +129,9 @@ and read_list f is_item indent e =
   let read_item indent ps = collect (read_paragraph (indent + 1)) e in
   let rec read_all fst others =
     skip_blank_line e;
-    match Enum.peek e with
+    match BatEnum.peek e with
       | Some (indentation, s, _) when indentation >= indent && is_item s ->
-          Enum.junk e;
+          BatEnum.junk e;
           push_remainder indentation s e;
           read_all fst (read_item indentation [] :: others)
       | None | Some _ -> f fst (List.rev others)
@@ -143,44 +141,47 @@ and read_pre kind e =
   let kind = match kind with "" -> None | s -> Some s in
   let re = Str.regexp "^\\\\+}}$" in
   let unescape = function
-      s when Str.string_match re s 0 -> String.slice ~first:1 s
+      s when Str.string_match re s 0 -> BatString.slice ~first:1 s
     | s -> s in
   (*  don't forget the last \n *)
   let ret ls = Some (Pre (String.concat "\n" (List.rev ("" :: ls)), kind)) in
-  let rec read_until_end fstindent ls = match Enum.get e with
+  let rec read_until_end fstindent ls = match BatEnum.get e with
       None | Some (_, "}}", _) -> ret ls
     | Some (indentation, s, _) ->
         let spaces = String.make (max 0 (indentation - fstindent)) ' ' in
           read_until_end fstindent ((spaces ^ unescape s) :: ls)
-  in match Enum.get e with
+  in match BatEnum.get e with
       None | Some (_, "}}", _) -> ret []
     | Some (indentation, s, _) -> read_until_end indentation [s]
 
 and read_quote indent e =
-  let push_and_finish e elm = Enum.push e elm; raise Enum.No_more_elements in
+  let push_and_finish e elm =
+    BatEnum.push e elm;
+    raise BatEnum.No_more_elements
+  in
   let next_without_lt e = function
     | (_, _, true) as line -> push_and_finish e line
     | (n, s, false) as line ->
         if n < indent || s.[0] <> '>' then
           push_and_finish e line
         else
-          let s = String.slice ~first:1 s in
-          let s' = String.strip s in
+          let s = BatString.slice ~first:1 s in
+          let s' = BatString.strip s in
             (String.length s - String.length s', s', s' = "")
 
-  in match collect (read_paragraph 0) (Enum.map (next_without_lt e) e) with
+  in match collect (read_paragraph 0) (BatEnum.map (next_without_lt e) e) with
       [] -> None
     | ps -> Some (Quote ps)
 
 and read_normal e =
   let rec gettxt ls =
     let return () = String.concat " " (List.rev ls) in
-    match Enum.peek e with
+    match BatEnum.peek e with
       None | Some (_, _, true) -> return ()
     | Some (_, l, _) -> match l.[0] with
             '!' | '*' | '-' | '+' | '#' | '>' when snd_is_space l -> return ()
           | '{' when snd_is l '{' -> return ()
-          | _ -> Enum.junk e; gettxt (l :: ls) in
+          | _ -> BatEnum.junk e; gettxt (l :: ls) in
   let txt = gettxt [] in
     Some (Normal (parse_text txt))
 
@@ -223,7 +224,8 @@ and scan s st n =
           (fun ref -> match ref.src, ref.desc with
                "", "" -> Text ""
              | "", desc -> Link { href_target = desc; href_desc = desc }
-             | src, "" when src.[0] = '#' -> Anchor (String.slice ~first:1 src)
+             | src, "" when src.[0] = '#' ->
+                 Anchor (BatString.slice ~first:1 src)
              | src, desc -> Link { href_target = ref.src; href_desc = ref.desc})
           s st (n + 1)
     | '\\' when (n + 1) < max -> addc st.current s.[n+1]; scan s st (n + 2)
@@ -302,7 +304,9 @@ and matches_at s ~max n delim =
 
 let parse_enum e =
   collect (read_paragraph 0)
-    (Enum.map (fun l -> let l' = String.strip l in (indentation l, l', l' = "")) e)
+    (BatEnum.map
+       (fun l -> let l' = BatString.strip l in (indentation l, l', l' = ""))
+       e)
 
-let parse_lines ls = parse_enum (List.enum ls)
+let parse_lines ls = parse_enum (BatList.enum ls)
 let parse_text s = parse_lines ((Str.split (Str.regexp "\n") s))
