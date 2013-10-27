@@ -1,4 +1,0 @@
-# OASIS_START
-# OASIS_STOP
-
-"src/Markdown.ml": syntax_camlp4o, pkg_sexplib.syntax

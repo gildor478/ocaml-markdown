@@ -2,9 +2,6 @@
 open Printf
 open ExtString
 open ExtList
-open Sexplib.Conv
-
-TYPE_CONV_PATH "Simple_markup"
 
 type ref = { src : string; desc : string }
 
@@ -32,12 +29,9 @@ and href = { href_target : string; href_desc : string; }
 
 and img_ref = { img_src : string; img_alt : string; }
 
-and par_list = paragraph list with sexp
+and par_list = paragraph list
 
 type parse_state = { max : int; current : Buffer.t; fragments : text list; }
-
-let string_of_paragraph p = Sexplib.Sexp.to_string_hum (sexp_of_paragraph p)
-let string_of_paragraphs ps = Sexplib.Sexp.to_string_hum (sexp_of_par_list ps)
 
 let indentation ?(ts=8) s =
   let rec loop n indent max =

@@ -4,11 +4,8 @@ open Markdown
 open Printf
 open ExtString
 
-let wrap f x =
-  "\n" ^ f x ^ "\n"
-
 let aeq_pars ?msg expected actual =
-  assert_equal ?msg ~printer:(wrap string_of_paragraphs) expected actual
+  assert_equal ?msg expected actual
 
 let check expected input =
   aeq_pars ~msg:(sprintf "With input:\n%s\n" (String.strip input))
