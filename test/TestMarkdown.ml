@@ -1,5 +1,5 @@
 (* Copyright (C) 2009 Mauricio Fernandez <mfp@acm.org> *)
-open OUnit
+open OUnit2
 open Markdown
 open Printf
 open ExtString
@@ -14,7 +14,7 @@ let check expected input =
   aeq_pars ~msg:(sprintf "With input:\n%s\n" (String.strip input))
     expected (parse_text input)
 
-let test_read_list () =
+let test_read_list test_ctxt =
   check
     [Ulist ([Normal [Text "foo "; Bold "bar"]], [[Normal [Text "baz"]]])]
     "* foo\n*bar*\n* baz";
@@ -76,7 +76,7 @@ let test_read_list () =
      #\ttwo
      #\tthree"
 
-let test_read_normal () =
+let test_read_normal test_ctxt =
   check [Normal [Text "foo "; Struck [Text " bar baz "]; Text " foobar"]]
     "foo == bar\nbaz == foobar";
   check
@@ -101,14 +101,14 @@ let test_read_normal () =
         Link { href_target = "#internal-link"; href_desc = "back" }]]
     "foo [](#internal-link). [back](#internal-link)"
 
-let test_read_normal_unmatched () =
+let test_read_normal_unmatched test_ctxt =
   check [Normal [Text "foo * bar"]] "foo * bar";
   check [Normal [Text "foo _ bar"]] "foo _ bar";
   check [Normal [Text "foo __ bar"]] "foo __ bar";
   check [Normal [Text "foo == bar"]] "foo == bar";
   check [Normal [Text "foo == bar"]; Normal [Text "baz =="]] "foo == bar\n\nbaz =="
 
-let test_read_pre () =
+let test_read_pre test_ctxt =
   check
     [Normal [Text "foo * bar"];
      Pre("a\n b\n  c\n", None);
@@ -137,14 +137,14 @@ let test_read_pre () =
           }}}
      }}"
 
-let test_heading () =
+let test_heading test_ctxt =
   for i = 1 to 6 do
     check
       [Heading (i, [Text "foo "; Link { href_target = "dst"; href_desc = "foo" }])]
     (String.make i '!' ^ "foo [foo](dst)")
   done
 
-let test_quote () =
+let test_quote test_ctxt =
   check [Quote [Normal [Text "xxx"]]] "> xxx";
   check [Quote [Normal [Text "xxx"]]] "> \n> xxx\n> ";
   check [Normal [Text "foo says:"];
@@ -174,7 +174,7 @@ let test_quote () =
      > * two\n\
      \n"
 
-let test_oasis () = 
+let test_oasis test_ctxt = 
 check 
 [Normal 
    [Text "OASIS generates a full configure, build and install system \
@@ -223,7 +223,8 @@ tested on GNU Linux and Windows.
 It also allows to have standard entry points and description. It helps to 
 integrates your libraries and software with third parties tools like GODI."
 
-let tests = "Simple_markup unit" >:::
+let tests =
+  "Simple_markup" >:::
   [
     "Normal" >:: test_read_normal;
     "Normal, unmatched delimiters" >:: test_read_normal_unmatched;

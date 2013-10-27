@@ -1,11 +1,11 @@
 (* Copyright (C) 2009 Mauricio Fernandez <mfp@acm.org> *)
-open OUnit
+open OUnit2
 
 let tests = 
-  "All tests" >:::
+  "Markdown" >:::
   [
     TestMarkdown.tests;
   ]
 
 let () =
-  ignore (run_test_tt_main tests)
+  run_test_tt_main tests

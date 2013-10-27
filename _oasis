@@ -30,7 +30,7 @@ Library html
 Executable test
   Path:         test
   MainIs:       test.ml
-  BuildDepends: markdown, oUnit
+  BuildDepends: markdown, oUnit (>= 2.0.0)
   Install:      false
   Build$:       flag(tests)
 
