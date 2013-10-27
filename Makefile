@@ -38,9 +38,3 @@ setup.data:
 .PHONY: build doc test all install uninstall reinstall clean distclean configure
 
 # OASIS_STOP
-
-deploy:
-	admin-gallu-deploy --verbose \
-		--forge_upload --forge_group ocaml-markdown --forge_user gildor-admin
-
-.PHONY: deploy
