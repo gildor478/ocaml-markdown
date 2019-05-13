@@ -51,7 +51,7 @@ PRECOMMIT_ARGS= \
 	    --exclude _tags
 
 precommit:
-	@if command -v OCamlPrecommit > /dev/null; then \
+	-@if command -v OCamlPrecommit > /dev/null; then \
 	  OCamlPrecommit $(PRECOMMIT_ARGS); \
 	else \
 	  echo "Skipping precommit checks.";\
