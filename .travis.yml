@@ -1,0 +1,22 @@
+language: c
+sudo: required
+install: test -e .travis.opam.sh || wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-opam.sh
+script: bash -ex .travis-opam.sh
+env:
+  global:
+    - OUNIT_CI=true PINS="markdown.0.4.0:."
+addons:
+  homebrew:
+    update: true
+cache:
+  directories:
+    - $HOME/Library/Caches/Homebrew
+matrix:
+  include:
+    - name: "markdown: linux"
+      os: linux
+      env: OCAML_VERSION=4.08 PACKAGE="markdown"
+
+    - name: "markdown: MacOSX"
+      os: osx
+      env: OCAML_VERSION=4.08 PACKAGE="markdown"
