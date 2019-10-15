@@ -1,5 +1,0 @@
-v0.1.1:
-
-  * Use Tyxml (thanks to Jacques-Pascal Deplaix).
-
- -- Sylvain Le Gall  Thu, 06 Jun 2013 23:14:51 +0000
