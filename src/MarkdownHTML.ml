@@ -52,7 +52,7 @@ let to_html ~render_pre ~render_link ~render_img l =
 
 end
 
-module Make_html5 (Html5 : Html5_sigs.T) = struct
+module Make_html5 (Html5 : Html5_sigs.T with type 'a Xml.wrap = 'a and type 'a wrap = 'a) = struct
 
 open Markdown
 open Html5
