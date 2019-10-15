@@ -22,7 +22,7 @@ depends: [
 conflicts: [
   "ocaml-markdown"
 ]
-synopsis: "Markdown processor for Ocsigen"
+synopsis: "Markdown parser and printer"
 description:"""
 This is a pure OCaml parser for Markdown files. It was originally written for
 Ocsigen but may be useful in other contexts too.
