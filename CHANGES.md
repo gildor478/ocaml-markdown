@@ -1,3 +1,8 @@
+## v0.2.1 - 2019-10-16
+
+### Fixed
+- URL for homepage.
+
 ## v0.2.0 - 2019-10-15
 
 ### Changed
