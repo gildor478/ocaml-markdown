@@ -1,0 +1,29 @@
+opam-version: "2.0"
+maintainer: "Sylvain Le Gall <sylvain+ocaml@le-gall.net>"
+authors: [ "Sylvain Le Gall" "Mauricio Fernandez" ]
+license: "MIT"
+homepage: "https://github.com/gildor478/ocaml-markdownt"
+dev-repo: "git+https://github.com/gildor478/ocaml-markdown.git"
+bug-reports: "https://github.com/gildor478/ocaml-markdown/issues"
+doc: "https://gildor478.github.io/ocaml-markdown/"
+build: [
+  ["dune" "build" "-p" name "-j" jobs
+   "@install"
+   "@doc" {with-doc}
+   "@runtest" {with-test}]
+]
+depends: [
+  "ocaml" {>= "4.03.0"}
+  "dune" {>= "1.11.0"}
+  "ounit2" {with-test & > "2.0.8"}
+  "batteries" {>= "2.10.0"}
+  "tyxml" {>= "4.3.0"}
+]
+conflicts: [
+  "ocaml-markdown"
+]
+synopsis: "Markdown processor for Ocsigen"
+description:"""
+This is a pure OCaml parser for Markdown files. It was originally written for
+Ocsigen but may be useful in other contexts too.
+"""

@@ -1,6 +1,4 @@
 (* Copyright (C) 2009 Mauricio Fernandez <mfp@acm.org> *)
-open Printf
-
 type ref = { src : string; desc : string }
 
 type paragraph =
@@ -36,7 +34,7 @@ let indentation ?(ts=8) s =
     if n >= max then indent
     else match s.[n] with
         ' ' -> loop (n + 1) (indent + 1) max
-      | '\t' -> loop (n + 1) (indent + 8) max
+      | '\t' -> loop (n + 1) (indent + ts) max
       | _ -> indent
   in loop 0 0 (String.length s)
 
@@ -126,16 +124,16 @@ and read_ol indent e =
     indent e
 
 and read_list f is_item indent e =
-  let read_item indent ps = collect (read_paragraph (indent + 1)) e in
+  let read_item indent = collect (read_paragraph (indent + 1)) e in
   let rec read_all fst others =
     skip_blank_line e;
     match BatEnum.peek e with
       | Some (indentation, s, _) when indentation >= indent && is_item s ->
           BatEnum.junk e;
           push_remainder indentation s e;
-          read_all fst (read_item indentation [] :: others)
+          read_all fst (read_item indentation :: others)
       | None | Some _ -> f fst (List.rev others)
-  in Some (read_all (read_item indent []) [])
+  in Some (read_all (read_item indent) [])
 
 and read_pre kind e =
   let kind = match kind with "" -> None | s -> Some s in
@@ -228,7 +226,7 @@ and scan s st n =
              | "", desc -> Link { href_target = desc; href_desc = desc }
              | src, "" when src.[0] = '#' ->
                  Anchor (BatString.slice ~first:1 src)
-             | src, desc -> Link { href_target = ref.src; href_desc = ref.desc})
+             | _, _ -> Link { href_target = ref.src; href_desc = ref.desc})
           s st (n + 1)
     | '\\' when (n + 1) < max -> addc st.current s.[n+1]; scan s st (n + 2)
     | c -> addc st.current c; scan s st (n + 1)

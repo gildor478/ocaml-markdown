@@ -1,0 +1,4 @@
+(library
+  (name markdown)
+  (public_name markdown)
+  (libraries batteries str))

@@ -16,7 +16,7 @@ let rec elm_to_html ~render_pre ~render_link ~render_img elm =
     | Heading (l, text) ->
         let f =
           match l with 1 -> h1 | 2 -> h2 | 3 -> h3 | 4 -> h4 | 5 -> h5 | _ -> h6
-        in f (par_text_to_html render_link render_img text)
+        in f (par_text_to_html ~render_link ~render_img text)
     | Quote ps -> blockquote (List.map self ps)
     | Ulist (fst, others) ->
         ul (List.map item (fst :: others))

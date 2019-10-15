@@ -1,5 +1,5 @@
-dist/
-_build/
-setup.data
-setup.log
-test.byte
+/dist/
+/_build/
+*.merlin
+/*.install
+*.swp
