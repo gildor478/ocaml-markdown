@@ -2,7 +2,7 @@ opam-version: "2.0"
 maintainer: "Sylvain Le Gall <sylvain+ocaml@le-gall.net>"
 authors: [ "Sylvain Le Gall" "Mauricio Fernandez" ]
 license: "MIT"
-homepage: "https://github.com/gildor478/ocaml-markdownt"
+homepage: "https://github.com/gildor478/ocaml-markdown"
 dev-repo: "git+https://github.com/gildor478/ocaml-markdown.git"
 bug-reports: "https://github.com/gildor478/ocaml-markdown/issues"
 doc: "https://gildor478.github.io/ocaml-markdown/"
