@@ -1,4 +1,4 @@
 (library
-  (name MarkdownHTML)
-  (public_name markdown.html)
-  (libraries markdown tyxml))
+ (name MarkdownHTML)
+ (public_name markdown.html)
+ (libraries markdown tyxml))
