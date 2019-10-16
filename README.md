@@ -11,6 +11,7 @@ Ocsigen but may be useful in other contexts too.
 [travis-img]:     https://travis-ci.org/gildor478/ocaml-markdown.svg?branch=master
 [appveyor]:       https://ci.appveyor.com/project/gildor478/ocaml-markdown
 [appveyor-img]:   https://ci.appveyor.com/api/projects/status/4ma2vpumkqfo7cq2/branch/master?svg=true
+[opam]:           https://opam.ocaml.org
 
 Installation
 ------------
