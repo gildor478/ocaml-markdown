@@ -28,8 +28,8 @@ Documentation
 * API documentation is
   [available online](https://gildor478.github.io/ocaml-markdown).
   
-Differences with standard Markdown syntax
-------------------------------------------
+Differences with standard Markdown
+----------------------------------
 
 The main differences of `ocaml-markdown` dialect with [the markdown standard](https://daringfireball.net/projects/markdown/syntax) are:
 - `{{` and `}}` are used to surround code blocks
